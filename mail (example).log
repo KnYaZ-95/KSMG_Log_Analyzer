@@ -1,0 +1,8 @@
+Nov  1 09:51:57 srv-ksmg postfix/smtpd[19883]: Anonymous TLS connection established from f731.i.mail.ru[45.84.129.102]: TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits)
+Nov  1 09:51:57 srv-ksmg postfix/smtpd[19883]: NOQUEUE: client=f731.i.mail.ru[45.84.129.102]
+Nov  1 09:52:00 srv-ksmg postfix/smtpd[19886]: connect from f485.i.mail.ru[45.84.129.2]
+Nov  1 09:52:00 srv-ksmg postfix/smtpd[19886]: setting up TLS connection from f485.i.mail.ru[45.84.129.2]
+Nov  1 09:52:01 srv-ksmg postfix/smtpd[19886]: Anonymous TLS connection established from f485.i.mail.ru[45.84.129.2]: TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits)
+Nov  1 09:52:01 srv-ksmg postfix/smtpd[19886]: NOQUEUE: client=f485.i.mail.ru[45.84.129.2]
+Nov  1 09:52:03 srv-ksmg KSMG: clean: message-id="<1667260314.112205306@f731.i.mail.ru>": relay-ip="45.84.129.102": action="Skipped": rules="1": size=28138: mail-from="alexy91.15@mail.ru": rcpt-to="pechyonkinaav@russiancrab.ru": kt-status="NotScanned, disabled by settings", av-status="Clean", ap-status="Clean", as-status="Clean", ma-status="NotScanned, disabled by settings", cf-status="Clean"
+Nov  1 09:52:03 srv-ksmg klms-smtp_proxy: Message from <alexy91.15@mail.ru> to <pechyonkinaav@russiancrab.ru> passed
