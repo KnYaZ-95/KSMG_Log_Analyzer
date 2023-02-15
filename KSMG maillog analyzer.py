@@ -24,17 +24,21 @@ def filter_dates(from_date, to_date, from_email, to_email, line) -> bool:
     return all([date_filter, from_email_filter, to_email_filter])
 
 
-def main(date_1, date_2, sent_to, received_from):
+def main(date_1, date_2, sent_to, received_from) -> None:
+    """Analyzing mail.log and printing"""
     from_date, to_date = converting_datetime(date_1, date_2)
     sender, receiver = sent_to.lower(), received_from.lower()
 
-    with open(f'C:/Users/{getlogin()}/Downloads/mail.log', 'r', encoding='ANSI') as logfile:
-        stdout.write('|   Date  |   Time   | Log record')
-        generator = (line for line in logfile)
-        for line in generator:
-            if filter_dates(from_date, to_date, sender, receiver, line):
-                stdout.write(f'| {line[:4]}{line[4:6]}  | {line[7:15]} | {line[25:]}')
-        stdout.write('\n')
+    try:
+        with open(f'C:/Users/{getlogin()}/Downloads/mail.log', 'r', encoding='ANSI') as logfile:
+            stdout.write('|   Date  |   Time   | Log record')
+            data = (line for line in logfile)
+            for line in data:
+                if filter_dates(from_date, to_date, sender, receiver, line):
+                    stdout.write(f'| {line[:4]}{line[4:6]}  | {line[7:15]} | {line[25:]}')
+            stdout.write('\n')
+    except FileNotFoundError or FileExistsError:
+        stdout.write('Check your downloads. Maillog should be at path: C:/Users/***yourlogin***/Downloads\n')
 
     # запись в отдельный файл result.txt
     # with open(f'C:/Users/{getlogin()}/Downloads/mail.log', 'r', encoding='ANSI') as logfile, \
@@ -47,8 +51,8 @@ def main(date_1, date_2, sent_to, received_from):
 
 
 if __name__ == '__main__':
-    print(f"[!] Hello, {getlogin()}! I'm Kaspersky Log Analyzer! [!]")
-    stdout.write('[!] Please, note that date/time should be at Day.Month format [!]\n')
+    stdout.write(f"[!] Hello, {getlogin()}! I'm Kaspersky Log Analyzer! [!]\n"
+                 f"[!] Please, note that date/time should be at Day.Month format [!]\n\n")
 
     while True:
         main(input('Searching date from\nDate (Dd.Mm): '), input('Searching date to\nDate (Dd.Mm): '),
