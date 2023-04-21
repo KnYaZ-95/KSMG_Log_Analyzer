@@ -3,15 +3,17 @@ from time import sleep
 from os import getlogin
 from sys import stdout
 
+# nothing
+
+# def check_dates(date:datetime):
+#     try:
+#         date = datetime.strptime
 
 def converting_datetime(from_date, to_date, from_time='0.0', to_time='0.0') -> tuple:
     """ To datetime object from format DD.MM HH:MM """
-    try:
-        from_datetime = datetime.strptime(from_date + from_time, '%d.%m%H.%M')
-        to_datetime = datetime.strptime(to_date + to_time, '%d.%m%H.%M')
-        return from_datetime, to_datetime
-    except ValueError:
-        stdout.write('[!] Wrong month [!]')
+    from_datetime = datetime.strptime(from_date + from_time, '%d.%m%H.%M')
+    to_datetime = datetime.strptime(to_date + to_time, '%d.%m%H.%M')
+    return from_datetime, to_datetime
 
 
 def filter_dates(from_date, to_date, from_email, to_email, line) -> bool:
@@ -26,19 +28,22 @@ def filter_dates(from_date, to_date, from_email, to_email, line) -> bool:
 
 def main(date_1, date_2, sent_to, received_from) -> None:
     """Analyzing mail.log and printing"""
+
     from_date, to_date = converting_datetime(date_1, date_2)
     sender, receiver = sent_to.lower(), received_from.lower()
 
-    try:
-        with open(f'C:/Users/{getlogin()}/Downloads/mail.log', 'r', encoding='ANSI') as logfile:
-            stdout.write('|   Date  |   Time   | Log record')
-            data = (line for line in logfile)
-            for line in data:
-                if filter_dates(from_date, to_date, sender, receiver, line):
-                    stdout.write(f'| {line[:4]}{line[4:6]}  | {line[7:15]} | {line[25:]}')
-            stdout.write('\n')
-    except FileNotFoundError or FileExistsError:
-        stdout.write('Check your downloads. Maillog should be at path: C:/Users/***yourlogin***/Downloads\n')
+    while True:
+        try:
+            with open(f'C:/Users/{getlogin()}/Downloads/mail.log', 'r', encoding='ANSI') as logfile:
+                stdout.write('|   Date  |   Time   | Log record')
+                data = (line for line in logfile)
+                for line in data:
+                    if filter_dates(from_date, to_date, sender, receiver, line):
+                        stdout.write(f'| {line[:4]}{line[4:6]}  | {line[7:15]} | {line[25:]}')
+                stdout.write('\n')
+                break
+        except FileNotFoundError or FileExistsError:
+            stdout.write('Check your downloads. Maillog should be at path: C:/Users/***yourlogin***/Downloads\n')
 
     # запись в отдельный файл result.txt
     # with open(f'C:/Users/{getlogin()}/Downloads/mail.log', 'r', encoding='ANSI') as logfile, \
